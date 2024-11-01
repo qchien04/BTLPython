@@ -4,14 +4,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 import pickle
+import os
 
+file_pathTranfer = os.path.join(os.path.dirname(__file__), "tranfers.pkl")
+file_slugAndAge = os.path.join(os.path.dirname(__file__), "slugAndAge.pkl")
 
 list_tranfer=[]
 name_slug_age=[]
-with open("tranfers2.pkl", "rb") as file:
+with open(file_pathTranfer, "rb") as file:
     list_tranfer = pickle.load(file)
 print(len(list_tranfer))
-with open("tranfers3.pkl", "rb") as file:
+with open(file_slugAndAge, "rb") as file:
     name_slug_age = pickle.load(file)
 print(len(list_tranfer))
 
@@ -49,7 +52,6 @@ for i in list_tranfer:
         if i.statLink.split(r'/')[-1]==j[1]:
             age=j[0]
     age_arr.append(age)
-    # age
 
 
 player=[]
@@ -106,7 +108,7 @@ test=int(input("Nhập id cầu thủ cần kiểm tra: "))
 new_player = np.array([([1]+player[test][2:])])
 predicted_price = regr.predict(new_player)
 print(f"Dự đoán giá cầu thủ {player[test][0]}:", f"{predicted_price[0,0]:.0f}" if predicted_price[0,0]>0 else "0","|| Giá trị thực: ",player[test][1])
-
+print("Độ lệch",f"{abs(predicted_price[0,0]-player[test][1]):.0f}" if predicted_price[0,0]>0 else f"{abs(player[test][1]):.0f}")
 
 mini_different=0
 small_different=0 #Độ lệch nhỏ hơn 2tr

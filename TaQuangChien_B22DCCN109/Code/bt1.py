@@ -4,7 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 from bs4 import BeautifulSoup
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-
+import os
 # Truy cập vào trang web
 from object import Player
 from object import Player_Manager
@@ -326,11 +326,14 @@ driver.quit()
 
 
 import pickle
+file_path_players=os.path.join(os.path.dirname(__file__), "players.pkl")
+file_path_squads=os.path.join(os.path.dirname(__file__), "squads.pkl")
+
 # Ghi các đối tượng vào file
-with open("players.pkl", "wb") as file:
+with open(file_path_players, "wb") as file:
     pickle.dump(player_manager.list_player, file)
 
-with open("squads.pkl", "wb") as file:
+with open(file_path_squads, "wb") as file:
     pickle.dump(squad_manager.list_squad, file)
 print("Ghi thành công tất cả player vào file players.pkl và squads.pkl!")
 

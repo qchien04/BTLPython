@@ -8,7 +8,7 @@ from radarChartPlot import drawRadarChart
 from title import header,row
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
-
+import os
 from object import Player_Manager
 
 
@@ -99,7 +99,11 @@ def drawKmean(n,data_normalized):
 def ComparePlayer():
     player_manager=Player_Manager()
     player_manager.list_player=list_player
-    print("So sánh 2 cầu thủ")
+
+    print("So sánh 2 cầu thủ\n Danh sách cầu thủ:")
+    for index,player in enumerate(list_player):
+        print(f"{player.name} (Team: {player.team} )")
+    
     player1=None
     player2=None
     while(True):
@@ -150,8 +154,9 @@ def ComparePlayer():
 #Main...........................................................................................................................
 #...............................................................................................................................
 # Đọc các đối tượng từ file
+file_path1 = os.path.join(os.path.dirname(__file__), "players.pkl")
 list_player=[]
-with open("players.pkl", "rb") as file:
+with open(file_path1, "rb") as file:
     list_player = pickle.load(file)
 
 print("Load data success!")
@@ -196,10 +201,14 @@ datanormalize=normalizedata()
 Elbow_solution(datanormalize)
 Silhouette_solution(datanormalize)
 
+#phân cụm với Kmean
 drawKmean(2,datanormalize)
 
 # Áp dụng PCA
 pca = PCA(n_components=2)
 dataPCA = pca.fit_transform(datanormalize)
 drawKmean(2,dataPCA)
-# ComparePlayer()
+
+
+#So sánh 2 cầu thủ
+ComparePlayer()

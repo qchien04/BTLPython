@@ -2,13 +2,19 @@ import pickle
 import csv
 import statistics
 from title import header,row,row2,header2,rowsquad
+import os
+file_path_players = os.path.join(os.path.dirname(__file__), "players.pkl")
+file_path_squads = os.path.join(os.path.dirname(__file__), "squads.pkl")
+file_path_resultTop3 = os.path.join(os.path.dirname(__file__), "result3.csv")
+file_path_result2 = os.path.join(os.path.dirname(__file__), "result2.csv")
+
 # Đọc các đối tượng từ file
 list_player=[]
-with open("players.pkl", "rb") as file:
+with open(file_path_players, "rb") as file:
     list_player = pickle.load(file)
 
 list_squad=[]
-with open("squads.pkl", "rb") as file:
+with open(file_path_squads, "rb") as file:
     list_squad = pickle.load(file)
 print("Load data success!")
 
@@ -25,7 +31,7 @@ def findtop3():
                 all_attr_of_player[index]=0
         to_compare_list.append(all_attr_of_player)
 
-    with open('result3.csv', mode='w', newline='', encoding='utf-8') as file:#file result3 luu top 3 cac cau thu co thuoc tinh cao nhat o moi thuoc tinh
+    with open(file_path_resultTop3, mode='w', newline='', encoding='utf-8') as file:#file result3 luu top 3 cac cau thu co thuoc tinh cao nhat o moi thuoc tinh
         writer = csv.writer(file)
         head=header[5:]
         writer.writerow(["Attr","Top 3 Highest","Top 3 Lowest"])
@@ -42,7 +48,8 @@ def findtop3():
             writer.writerow([head[i],top3H,top3L])
 
     import subprocess
-    subprocess.Popen(["start", r"result3.csv"], shell=True)
+    #subprocess.Popen(["start", file_path_resultTop3], shell=True)
+    os.startfile(file_path_resultTop3)
 
 def get_attr_array(list_player):
     all_list_attr_of_player=[] #1 phần tử là tất cả các thuộc tính của Player
@@ -61,7 +68,7 @@ def get_attr_array(list_player):
     return all_attr
 
 def findMeanMedianStddev():
-    with open('result2.csv', mode='w', newline='', encoding='utf-8') as file:
+    with open(file_path_result2, mode='w', newline='', encoding='utf-8') as file:
         #start all player
         all_attr=get_attr_array(list_player)#1 Phần tử là 1 dãy cùng 1 thuộc tính của các Player,Độ dài của 1 phần tử là số lượng Player
         mean_value_list=[0]*NUMBER_OF_ATTR
@@ -105,7 +112,8 @@ def findMeanMedianStddev():
         
     print("Write result2 Success")
     import subprocess
-    subprocess.Popen(["start", r"result2.csv"], shell=True)
+    #subprocess.Popen(["start", r"result2.csv"], shell=True)
+    os.startfile(file_path_result2)
 
 def drawHistogram():
     import matplotlib.pyplot as plt
@@ -159,8 +167,8 @@ def findBestSquad():
     squad_ranking=Counter(best_team_in_one_attr)
     print("Best Squad in Cometition is: ",(squad_ranking.most_common(1)[0][0]))
 
-findtop3()
+# findtop3()
 findMeanMedianStddev()
-drawHistogram()
-findBestSquad()
+# drawHistogram()
+# findBestSquad()
 

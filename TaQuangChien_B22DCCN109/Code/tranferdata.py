@@ -6,6 +6,9 @@ import time
 import threading
 from bs4 import BeautifulSoup
 from object import Tranfer
+import os
+
+file_path_tranfer=os.path.join(os.path.dirname(__file__), "tranfers.pkl")
 
 def changePriceToNumber(price):
     if price == "Free": 
@@ -177,7 +180,7 @@ for thread in threads:
 
 
 import pickle
-with open("tranfers2.pkl", "wb") as file:
+with open(file_path_tranfer, "wb") as file:
     pickle.dump(list_result, file)
 
 print("Get data success")
