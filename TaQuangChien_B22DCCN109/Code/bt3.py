@@ -100,7 +100,7 @@ def ComparePlayer():
     player_manager=Player_Manager()
     player_manager.list_player=list_player
 
-    print("So sánh 2 cầu thủ\n Danh sách cầu thủ:")
+    print("So sánh 2 cầu thủ\nDanh sách cầu thủ:")
     for index,player in enumerate(list_player):
         print(f"{player.name} (Team: {player.team} )")
     

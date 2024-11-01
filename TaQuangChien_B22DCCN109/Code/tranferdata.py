@@ -8,7 +8,6 @@ from bs4 import BeautifulSoup
 from object import Tranfer
 import os
 
-file_path_tranfer=os.path.join(os.path.dirname(__file__), "tranfers.pkl")
 
 def changePriceToNumber(price):
     if price == "Free": 
@@ -178,10 +177,47 @@ for i in range(0, NUMBEROFPLAYER, PAGEPERTHREAD):
 for thread in threads:
     thread.join()
 
-
 import pickle
+file_path_tranfer=os.path.join(os.path.dirname(__file__), "tranfers.pkl")
 with open(file_path_tranfer, "wb") as file:
     pickle.dump(list_result, file)
 
 print("Get data success")
+
+
+import json
+import requests
+
+form_data = {
+    'orderBy': 'date_transfer',
+    'orderByDescending': 1,
+    'page': 1,
+    'pages': 0,
+    'pageItems': 500,
+    'countryId': 'all',
+    'season': 5847,
+    'tournamentId': 31,
+    'clubFromId': 'all',
+    'clubToId': 'all',
+    'transferFeeFrom': None,
+    'transferFeeTo': None,
+}
+url = 'https://www.footballtransfers.com/en/transfers/actions/confirmed/overview'
+res = requests.post(url, data=form_data)
+file_slugAndAge = os.path.join(os.path.dirname(__file__), "slugAndAge.pkl")
+if res.status_code == 200:
+    json_data = res.json()
+    import pickle
+    name_slug_age=[]
+    with open(file_slugAndAge, "wb") as file:
+        for i in range(json_data['filter_records']):
+            age=json_data['records'][i]['age']
+            if age!=None and age.isdigit():
+                age=int(age)
+            else:age=0
+            arr=[age,json_data['records'][i]['player_slug']]
+            name_slug_age.append(arr)
+        pickle.dump(name_slug_age,file)
+else:
+    print("Lỗi")
 
