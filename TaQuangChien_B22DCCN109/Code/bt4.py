@@ -18,7 +18,6 @@ with open(file_slugAndAge, "rb") as file:
     name_slug_age = pickle.load(file)
 print(len(list_tranfer))
 
-NUMBER_OF_PLAYER=len(list_tranfer)
 price_arr=[]
 skill_arr=[]
 pot_arr=[]
@@ -33,7 +32,6 @@ averageETV_arr=[]
 lastTranfer_arr=[]
 age_arr=[]
 
-
 for i in list_tranfer:
     price_arr.append(i.price)
     skill_arr.append(i.skill)
@@ -47,7 +45,7 @@ for i in list_tranfer:
     redCards_arr.append(i.red_cards)
     averageETV_arr.append(i.averageETV)
     lastTranfer_arr.append(i.lastTranfer)
-    age=0
+    age=0 #Xác định tuổi
     for j in name_slug_age:
         if i.statLink.split(r'/')[-1]==j[1]:
             age=j[0]
@@ -70,7 +68,7 @@ for i in list_tranfer:
     arr.append(i.red_cards)
     arr.append(i.averageETV)
     arr.append(i.lastTranfer)
-    age=0
+    age=0 #Xác nhận tuổi
     for j in name_slug_age:
         if i.statLink.split(r'/')[-1]==j[1]:
             age=j[0]
