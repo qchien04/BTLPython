@@ -2,6 +2,9 @@
 # Các thư viện cần thiết
 - pip install scikit-learn
 - pip install matplotlib
+- pip install selenium
+- pip install beautifulsoup4
+- pip install webdriver-manager
 
 # Hướng dẫn chạy
 - Mở thư mục code
