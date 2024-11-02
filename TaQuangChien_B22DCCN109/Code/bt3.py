@@ -161,7 +161,6 @@ with open(file_path1, "rb") as file:
 
 print("Load data success!")
 
-
 list_player=list(filter(lambda p:p.playing_time["minutes"]>90,list_player))
 print(len(list_player))
 #lay tu ket qua cua bai 2
@@ -197,18 +196,20 @@ mean_value_list=[19.627586206896552, 14.413793103448276, 1006.5134048257372, 1.8
 NUMBER_OF_ATTR=167 #loai bo 5 thuoc tinh dau
 datanormalize=normalizedata()
 
-
+print("Find k ---------------------------------------------------------------------------------------------------")
 Elbow_solution(datanormalize)
 Silhouette_solution(datanormalize)
 
 #phân cụm với Kmean
+print("Kmean ---------------------------------------------------------------------------------------------------")
 drawKmean(2,datanormalize)
 
 # Áp dụng PCA
+print("PCA ---------------------------------------------------------------------------------------------------")
 pca = PCA(n_components=2)
 dataPCA = pca.fit_transform(datanormalize)
 drawKmean(2,dataPCA)
 
-
+print("Compare player ---------------------------------------------------------------------------------------------------")
 #So sánh 2 cầu thủ
 ComparePlayer()

@@ -7,7 +7,6 @@ file_path_players = os.path.join(os.path.dirname(__file__), "players.pkl")
 file_path_squads = os.path.join(os.path.dirname(__file__), "squads.pkl")
 file_path_resultTop3 = os.path.join(os.path.dirname(__file__), "result3.csv")
 file_path_result2 = os.path.join(os.path.dirname(__file__), "result2.csv")
-
 # Đọc các đối tượng từ file
 list_player=[]
 with open(file_path_players, "rb") as file:
@@ -40,15 +39,12 @@ def findtop3():
             top3H="Top 1: "+players_after_sort[-1][0]+"(Team: "+players_after_sort[-1][2]+")"+"\n"\
                     +"Top 2: "+players_after_sort[-2][0]+"(Team: "+players_after_sort[-2][2]+")"+"\n"\
                     +"Top 3: "+players_after_sort[-3][0]+"(Team: "+players_after_sort[-3][2]+")"
-                    
-                    
+                     
             top3L="Top 1 from bottom: "+players_after_sort[1][0]+"(Team: "+players_after_sort[1][2]+")"+"\n"\
                     +"Top 2 from bottom: : "+players_after_sort[2][0]+"(Team: "+players_after_sort[2][2]+")"+"\n"\
                     +"Top 3 from bottom: : "+players_after_sort[3][0]+"(Team: "+players_after_sort[3][2]+")"
             writer.writerow([head[i],top3H,top3L])
 
-    import subprocess
-    #subprocess.Popen(["start", file_path_resultTop3], shell=True)
     os.startfile(file_path_resultTop3)
 
 def get_attr_array(list_player):
@@ -165,10 +161,17 @@ def findBestSquad():
     #đội nào có phong độ tốt nhất giải ngoại Hạng Anh mùa 2023-2024
     from collections import Counter
     squad_ranking=Counter(best_team_in_one_attr)
-    print("Best Squad in Cometition is: ",(squad_ranking.most_common(1)[0][0]))
+    print("Best Squad in Competition is: ",(squad_ranking.most_common(1)[0][0]))
 
-# findtop3()
+print("Find top3 ---------------------------------------------------------------------------------------------------")
+findtop3()
+
+print("Find mean-median-std ---------------------------------------------------------------------------------------------------")
 findMeanMedianStddev()
+
+print("Draw histogram ---------------------------------------------------------------------------------------------------")
 # drawHistogram()
-# findBestSquad()
+
+print("Find best squad ---------------------------------------------------------------------------------------------------")
+findBestSquad()
 

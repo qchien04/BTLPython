@@ -328,6 +328,7 @@ driver.quit()
 import pickle
 file_path_players=os.path.join(os.path.dirname(__file__), "players.pkl")
 file_path_squads=os.path.join(os.path.dirname(__file__), "squads.pkl")
+file_path_result=os.path.join(os.path.dirname(__file__), "result.csv")
 
 # Ghi các đối tượng vào file
 with open(file_path_players, "wb") as file:
@@ -344,7 +345,7 @@ player_manager.sortingByName()
 import csv
 from title import header
 from title import row
-with open('result.csv', mode='w', newline='', encoding='utf-8') as file:
+with open(file_path_result, mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
     writer.writerow(header)
     
@@ -352,12 +353,10 @@ with open('result.csv', mode='w', newline='', encoding='utf-8') as file:
         r=row(player)
         writer.writerow(r)
 print("Ghi thành công vào file result.csv","Exam 1 Success",sep="\n")
-
-
 import subprocess
 # Mở file CSV
-subprocess.Popen(["start", r"result.csv"], shell=True)
-
+# subprocess.Popen(["start", file_path_result], shell=True)
+os.startfile(file_path_result)
 
 
 
